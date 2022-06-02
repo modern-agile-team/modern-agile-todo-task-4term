@@ -33,7 +33,7 @@
 
 #### 테이블 구조
 
-**no와 in_date는 Default가 정해져있기때문에 생성, 수정 시 값을 직접 명시해주지 않아도 됨**
+**id, is_check, in_date는 Default가 정해져있기때문에 생성, 수정 시 값을 직접 명시해주지 않아도 됨**
 
 ![테이블-구조](https://user-images.githubusercontent.com/78959175/171580620-7444f6ba-80e7-4572-8a34-d6e2083c933a.png)
 
