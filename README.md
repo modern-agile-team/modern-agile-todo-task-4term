@@ -35,13 +35,13 @@
 
 **no와 in_date는 Default가 정해져있기때문에 생성, 수정 시 값을 직접 명시해주지 않아도 됨**
 
-![테이블-구조](https://user-images.githubusercontent.com/46591459/147024017-d1bdbb67-2081-442e-8a92-198d5371ac7d.PNG)
+![테이블-구조]([https://user-images.githubusercontent.com/46591459/147024017-d1bdbb67-2081-442e-8a92-198d5371ac7d.PNG](https://user-images.githubusercontent.com/78959175/171580620-7444f6ba-80e7-4572-8a34-d6e2083c933a.png)
 
 <br>
 
 #### 테이블 초기데이터 (이 초기데이터는 수정 및 삭제하지 말아주세요.)
 
-![DB-초기데이터](https://user-images.githubusercontent.com/46591459/147024746-6f7493be-f4dc-4cf3-85fa-d2449089fca9.PNG)
+![DB-초기데이터](https://user-images.githubusercontent.com/78959175/171580544-71cfb2c2-ac1a-4cbd-ab83-bf3885610312.png)
 
 <br>
 <br>
