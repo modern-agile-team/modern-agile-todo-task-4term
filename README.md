@@ -7,11 +7,10 @@
 - Back-End 서버 구성 및 Todo list CRUD API 구현
   1.  전체적인 서버 구성, 파일 생성 및 DB를 이용한 Todo list API 구현
   2.  Todo list 전체 조회 **(GET)**
-  3.  Tdo list 상세 조회 **(GET)**
-  4.  Todo list 생성 **(POST)**
-  5.  Todo list 내용 수정 **(PATCH)**
-  6.  Todo list 체크 수정 **(PATCH)**
-  7.  Todo list 삭제 **(DELETE)**
+  3.  Todo list 생성 **(POST)**
+  4.  Todo list 내용 수정 **(PATCH)**
+  5.  Todo list 체크 **(PATCH)**
+  6.  Todo list 삭제 **(DELETE)**
 
 <br>
 
