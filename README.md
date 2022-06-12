@@ -1,6 +1,14 @@
-# 👨🏻‍💻 모던 애자일 Back-End & Front-End 개발 과제
+# 👨🏻‍💻 모던 애자일 퍼블리싱 & Back-End & Front-End 개발 과제
 
 <br>
+
+## 퍼블리싱 
+
+- https://www.figma.com/file/XyYbaBMYh2Ro1KAhQr3aEX/Untitled?node-id=0%3A1
+- figma 에 디자인된 웹 스펙을 참고하여 웹 퍼블리싱
+
+![Screen Shot 2022-06-12 at 2 05 38 PM](https://user-images.githubusercontent.com/69745441/173215393-612d9657-18ef-420b-81bd-7133aa04a29d.png)
+
 
 ## 🖍 문제
 
@@ -57,6 +65,12 @@
 
 <br>
 <br>
+
+## Front-End
+- figma 에 기획된 데이터 추가(Create), 조회(Read), 수정(Update), 삭제(Delete) 의 CRUD 구현
+- 4기 노션 > `Front-End 과제` 에 예시를 보고 JavaScript 를 사용해 구현
+![Screen Shot 2022-06-12 at 2 23 51 PM](https://user-images.githubusercontent.com/69745441/173217033-2f095086-1461-436b-8e54-750fbd3029c5.png)
+
 
 ## 📝 과제 사용법
 
