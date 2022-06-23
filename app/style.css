@@ -139,10 +139,6 @@ button.add:active {
     background: #e3fafc;
     color: #ff6161;
 }
-button.xBtn:hover {
-}
-button.xBtn:active {
-}
 .todolistText {
     width: 390px;
     height: 18px;
