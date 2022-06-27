@@ -1,75 +1,70 @@
-window.addEventListener("load", () => {
-  const div = document.querySelector(".middle");
-  const input = document.querySelector(".todo-input");
-  const list_el = document.querySelector(".bottom");
-  const add = document.querySelector(".add");
+const inputBox = document.querySelector(".todo-input");
+const listEl = document.querySelector(".bottom");
+const addBtn = document.querySelector(".addBtn");
 
-  add.addEventListener("click", e => {
-    e.preventDefault();
+addBtn.addEventListener("click", e => {
+  e.preventDefault();
 
-    const bottom_box = input.value;
+  const bottom_box = inputBox.value;
 
-    // if (!bottom_box) {
-    //   alert("please");
-    //   return;
-    // }
+  const todoEl = document.createElement("li");
+  const todoContentEl = document.createElement("div");
+  const todoInputEl = document.createElement("input");
 
-    // 입력
-    const task_el = document.createElement("li");
-    task_el.classList.add("bottom_box");
+  if (!bottom_box) {
+    return;
+  } else {
+    todoEl.classList.add("bottom_box");
+    todoContentEl.classList.add("bottom");
+    todoInputEl.classList.add("inputText");
+    todoInputEl.type = "inputText";
+    todoInputEl.value = bottom_box;
+    todoInputEl.setAttribute("readonly", "redonly");
+    todoContentEl.appendChild(todoInputEl);
+  }
 
-    const task_content_el = document.createElement("div");
-    task_content_el.classList.add("bottom");
+  // 버튼 가져오기
+  const todoDeleteEl = document.createElement("button");
+  todoDeleteEl.classList.add("delBtn");
+  todoDeleteEl.innerHTML = "X";
 
-    const task_input_el = document.createElement("input");
-    task_input_el.classList.add("text2");
-    task_input_el.type = "text2";
-    task_input_el.value = bottom_box;
-    task_input_el.setAttribute("readonly", "redonly");
+  const todoEditEl = document.createElement("button");
+  todoEditEl.classList.add("changeBtn");
+  todoEditEl.innerHTML = "수정";
 
-    task_content_el.appendChild(task_input_el);
+  todoEl.appendChild(todoDeleteEl);
+  todoEl.appendChild(todoContentEl);
+  todoEl.appendChild(todoEditEl);
 
-    // 버튼 가져오기
-    const task_delete_el = document.createElement("button");
-    task_delete_el.classList.add("delBtn");
-    task_delete_el.innerHTML = "X";
+  listEl.appendChild(todoEl);
 
-    const task_edit_el = document.createElement("button");
-    task_edit_el.classList.add("changeBtn");
-    task_edit_el.innerHTML = "수정";
+  inputBox.value = "";
 
-    task_el.appendChild(task_delete_el);
-    task_el.appendChild(task_content_el);
-    task_el.appendChild(task_edit_el);
+  todoInputEl.addEventListener("click", () => {
+    if (todoContentEl.style.textDecoration == "none") {
+      todoContentEl.style.textDecoration = "line-through";
+      todoInputEl.style.color = "lightgray";
+      todoContentEl.style.color = "lightgray";
+    } else {
+      todoContentEl.style.textDecoration = "none";
+      todoInputEl.style.color = "#606060";
+    }
+  });
 
-    list_el.appendChild(task_el);
+  todoEditEl.addEventListener("click", () => {
+    if (todoEditEl.innerText === "수정") {
+      todoInputEl.removeAttribute("readonly");
+      todoInputEl.style.backgroundColor = "white";
+      todoInputEl.focus();
+      todoEditEl.innerText = "완료"; // -> 객체로 할려면 여기 주석
+    } else {
+      todoInputEl.setAttribute("readonly", "readonly");
+      todoInputEl.style.backgroundColor = "";
+      todoEditEl.innerText = "수정";
+    }
+  });
 
-    input.value = "";
-
-    // list_el.addEventListener("click", () => {
-    //   task_content_el.style.textDecoration = "line-through";
-    //   task_content_el.color = "lightgray";
-    //});
-    // const editTextChang = {
-    //   완료: "수정",
-    //   수정: "완료",
-
-    // };
-    task_edit_el.addEventListener("click", () => {
-      // task_edit_el.innerText = editTextChang[task_edit_el.innerText];
-      //console.log(task_edit_el.innerText);
-      if (task_edit_el.innerText === "수정") {
-        task_input_el.removeAttribute("readonly");
-        task_input_el.focus();
-        task_edit_el.innerText = "완료"; // -> 객체로 할려면 여기 주석
-      } else {
-        // console.log("성공");
-        task_input_el.setAttribute("readonly", "readonly");
-        task_edit_el.innerText = "수정";
-      }
-    });
-    task_delete_el.addEventListener("click", () => {
-      list_el.removeChild(task_el);
-    });
+  todoDeleteEl.addEventListener("click", () => {
+    listEl.removeChild(todoEl);
   });
 });

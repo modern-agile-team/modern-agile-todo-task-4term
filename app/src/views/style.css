@@ -47,7 +47,7 @@ input[type="text"] {
  background: #FFF; 
   border-bottom: 1px solid #C5F6FA;
 }
-.add {
+.addBtn {
   outline: none;
   border: none;
   width: 60px;
@@ -63,15 +63,15 @@ input[type="text"] {
   font-weight: 500;
   font-size: 16px;
 }
-.add:hover {
+.addBtn:hover {
   background: #2AE3FF;
+  cursor: pointer;
 }
-.add:active {
+.addBtn:active {
   background: #1D99AC;
 }
  .bottom {
   width: 512px;
-  /* height: fit-content; */
 } 
 .bottom_box {
   width: 475px;
@@ -112,7 +112,7 @@ input[type="text"] {
 .bottom_box:hover .delBtn {
   visibility:  visible;
 }
-input[type="text2"] {
+input[type="inputText"] {
   outline: none;
   border: none;
   width: 390px;
@@ -130,7 +130,7 @@ input[type="text2"] {
   color:#606060; 
   border-radius: 4px;
 }
-input[type="text2"]:active {
+input[type="inputText"]:active {
   text-decoration: line-through;
   color: lightgray;
   background-color: #fff; 
@@ -150,6 +150,7 @@ input[type="text2"]:active {
 }
 .changeBtn:hover {
   background: #2AE3FF;
+  cursor: pointer;
 }
 .changeBtn:active {
   background: #1D99AC;
