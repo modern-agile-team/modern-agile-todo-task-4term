@@ -5,6 +5,9 @@ const router = express.Router();
 
 const ctrl = require("./index.ctrl");
 
-router.get("/", ctrl.home);
+router.get("/", ctrl.output.home);
+
+
+router.post("/", ctrl.process.home);
 
 module.exports = router;

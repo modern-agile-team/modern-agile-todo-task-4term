@@ -17,19 +17,19 @@ todoInput.addEventListener('keypress', (e) => {
 });
 
 
-function add(tod) {
 
-    if (tod) {    
-    const text = document.createTextNode(todoInput.value);
-
-    const li = document.createElement("li");
-    const div = document.createElement("div");
-    const divText= document.createElement("div");
-    const editBtn = document.createElement("button");
-    const editBtnText = document.createTextNode("수정");
-    const delBtn = document.createElement('button');
-    const delBtnText = document.createTextNode('X');
-    const input = document.createElement("input")
+function add(todoValue) {
+    if (todoValue) {    
+    const text = document.createTextNode(todoValue);
+    parser(todoValue);
+    const li = document.createElement("li"),
+        div = document.createElement("div"),
+        divText= document.createElement("div"),
+        editBtn = document.createElement("button"),
+        editBtnText = document.createTextNode("수정"),
+        delBtn = document.createElement('button'),
+        delBtnText = document.createTextNode('X'),
+        input = document.createElement("input");
 
     input.setAttribute("id", cnt);
     input.setAttribute("class", "input_add");
@@ -64,14 +64,16 @@ function add(tod) {
     div.appendChild(editBtn);
     li.appendChild(div);
     ul.appendChild(li); 
+    
+    
     }
 }
 
 function edit(event, id, value) {
-    const input = document.querySelectorAll('.input_add');
-    const div = document.querySelectorAll(".div_text");
-    const editBtn = document.querySelectorAll(".btn_edit");
-    const delBtn =  document.querySelectorAll(".btn_del");
+    const input = document.querySelectorAll('.input_add'),
+        div = document.querySelectorAll(".div_text"),
+        editBtn = document.querySelectorAll(".btn_edit"),
+        delBtn =  document.querySelectorAll(".btn_del");
 
     for (let i = 0; i < div.length; i++) {
         if (div[i].id === id && input[i].style.display === "none") {
@@ -97,10 +99,10 @@ function edit(event, id, value) {
 
 function enterEdit(event, value, id){
     event.stopPropagation();
-    const input = document.querySelectorAll('.input_add');
-    const editBtn = document.querySelectorAll(".btn_edit");
-    const div = document.querySelectorAll(".div_text");
-    const delBtn =  document.querySelectorAll(".btn_del");
+    const input = document.querySelectorAll('.input_add'),
+        editBtn = document.querySelectorAll(".btn_edit"),
+        div = document.querySelectorAll(".div_text"),
+        delBtn =  document.querySelectorAll(".btn_del");
 
     for(let i = 0; i < input.length; i++){
         if (input[i].id === id){
@@ -145,4 +147,17 @@ function del(event, id) {
     event.stopPropagation();
 }
 
+function parser(todoVal){
+    const req = {
+        value: todoVal,
+    };
+    
+    fetch("/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    });
+}
 
