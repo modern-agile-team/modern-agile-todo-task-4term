@@ -1,7 +1,6 @@
 "use strict"
-const text = {
-    value: ["할 일1", "할 일2"],
-};
+
+const ToDoStorage = require("../../models/ToDoStorage")
 
 const output = {
     home: (req, res) => {
@@ -10,9 +9,22 @@ const output = {
 }
 const process = {
     home: (req, res) =>{
-        const text = req.body;
+        const text = req.body.value,
+              id = req.body.id;
+        ToDoStorage.getUsers("value","id");
 
-    console.log(text);
+        console.log(id);
+
+        const response = {};
+        if (text.length > 5){
+            response.success = true;
+            response.msg = "5이상 입니다."
+            return res.json(response);
+        }    
+        
+        response.success = true;
+        response.msg = "5이상 입니다."
+        return res.json(response);
     },
 }
 

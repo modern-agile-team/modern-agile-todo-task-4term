@@ -1,10 +1,17 @@
-const addBtn = document.querySelector('.btn_add').addEventListener('click', () => {add(todoInput.value);
-todoInput.value = "";});
+"use strict"
+
 const ul = document.getElementById('ul_ID');
 const todoInput = document.querySelector('.todo_input');
+const addBtn = document.querySelector('.btn_add')
+    .addEventListener('click', () => {
+        add(todoInput.value);
+        todoInput.value = "";
+    });
+
+
 const editToggle =  {
     완료 : "수정",
-    수정 : "완료"
+    수정 : "완료",
 }
 
 let cnt = 0;
@@ -21,7 +28,7 @@ todoInput.addEventListener('keypress', (e) => {
 function add(todoValue) {
     if (todoValue) {    
     const text = document.createTextNode(todoValue);
-    parser(todoValue);
+    parser(todoValue, cnt);
     const li = document.createElement("li"),
         div = document.createElement("div"),
         divText= document.createElement("div"),
@@ -44,9 +51,8 @@ function add(todoValue) {
     editBtn.setAttribute("id", cnt);
     editBtn.setAttribute("class", "btn_edit");
     li.setAttribute("id", cnt);
-
     editBtn.addEventListener('click', (event) => edit(event, editBtn.id, todoInput.value));
-    div.addEventListener('click', (event) => line(event, div.id));
+    div.addEventListener('click', (event) => line(event, div.id)); 
     delBtn.addEventListener('click', (event) => del(event, delBtn.id));
     input.addEventListener('keypress', (event) => {
         if (event.key ==="Enter")
@@ -64,8 +70,6 @@ function add(todoValue) {
     div.appendChild(editBtn);
     li.appendChild(div);
     ul.appendChild(li); 
-    
-    
     }
 }
 
@@ -133,7 +137,6 @@ function line(event, id) {
         }
     }
     event.stopPropagation();
-
 }
 
 function del(event, id) {
@@ -141,23 +144,26 @@ function del(event, id) {
     for (let i =0; i < li.length; i++){
         if (li[i].id === id){
             li.forEach((el) => {el === li[i] && el.remove()});
-            
         }
     }
     event.stopPropagation();
 }
 
-function parser(todoVal){
+function parser(todoVal, cnt){
     const req = {
         value: todoVal,
+        id: cnt,
     };
-    
     fetch("/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(req),
-    });
+    }).then((res) => res.json())
+      .then(console.log)
+      .catch((err) => {
+        console.error(new Error("로그인 중 에러 발생"));
+      });
 }
 
