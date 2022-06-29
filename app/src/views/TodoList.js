@@ -1,12 +1,13 @@
 "use strict"
-
+let cnt = 0;
 const ul = document.getElementById('ul_ID');
 const todoInput = document.querySelector('.todo_input');
-const addBtn = document.querySelector('.btn_add')
-    .addEventListener('click', () => {
-        add(todoInput.value);
-        todoInput.value = "";
-    });
+// const addBtn = document.querySelector('.btn_add')
+//     .addEventListener('click', () => {
+//         add(todoInput.value);
+//         todoInput.value = "";
+//     });
+const addBtn = document.querySelector('.btn_add').addEventListener('click', parser);
 
 
 const editToggle =  {
@@ -14,7 +15,6 @@ const editToggle =  {
     수정 : "완료",
 }
 
-let cnt = 0;
 
 todoInput.addEventListener('keypress', (e) => {
     if (e.key ==="Enter"){
@@ -26,10 +26,15 @@ todoInput.addEventListener('keypress', (e) => {
 
 
 function add(todoValue) {
-    if (todoValue) {    
-    const text = document.createTextNode(todoValue);
-    parser(todoValue, cnt);
-    const li = document.createElement("li"),
+    if (todoValue) {   
+        // li만들고
+        // li.innerHTML = `
+        //     <li>안녕</li>
+        //     <li>${todoValue}</li>
+        // `; 
+        // ul.appendChild(li);
+    const text = document.createTextNode(todoValue),
+        li = document.createElement("li"),
         div = document.createElement("div"),
         divText= document.createElement("div"),
         editBtn = document.createElement("button"),
@@ -51,15 +56,22 @@ function add(todoValue) {
     editBtn.setAttribute("id", cnt);
     editBtn.setAttribute("class", "btn_edit");
     li.setAttribute("id", cnt);
-    editBtn.addEventListener('click', (event) => edit(event, editBtn.id, todoInput.value));
+
+    editBtn.addEventListener('click', (event) =>
+        edit(event, editBtn.id, todoInput.value));
     div.addEventListener('click', (event) => line(event, div.id)); 
     delBtn.addEventListener('click', (event) => del(event, delBtn.id));
+    input.addEventListener("click",(e) => {
+        e.stopImmediatePropagation();
+    });
     input.addEventListener('keypress', (event) => {
         if (event.key ==="Enter")
         enterEdit(event, todoInput.value, input.id, divText.style.textDecoration);
     });
 
     cnt++;
+    
+    // parser(todoValue, cnt);
 
     delBtn.appendChild(delBtnText);
     editBtn.appendChild(editBtnText);
@@ -110,6 +122,9 @@ function enterEdit(event, value, id){
 
     for(let i = 0; i < input.length; i++){
         if (input[i].id === id){
+            input[i].addEventListener("click",(evnet) => {
+                event.stopPropagation();
+            })
             value = input[i].value;
             delBtn[i].style.visibility = "hidden";
             div[i].style.display = "block";
@@ -131,7 +146,7 @@ function line(event, id) {
             div[i].style.textDecoration = "line-through";
             div[i].style.color = "lightgrey";
 
-        }else if (div[i].id === id && div[i].style.textDecoration == "line-through"){
+        } else if (div[i].id === id && div[i].style.textDecoration == "line-through"){
             div[i].style.textDecoration = "";
             div[i].style.color = "black";
         }
@@ -140,7 +155,7 @@ function line(event, id) {
 }
 
 function del(event, id) {
-     li = document.querySelectorAll("li");
+    const li = document.querySelectorAll("li");
     for (let i =0; i < li.length; i++){
         if (li[i].id === id){
             li.forEach((el) => {el === li[i] && el.remove()});
@@ -149,9 +164,10 @@ function del(event, id) {
     event.stopPropagation();
 }
 
-function parser(todoVal, cnt){
+function parser(e){
+    const val = e.target.parentNode.childNodes[1].value;
     const req = {
-        value: todoVal,
+        value: val,
         id: cnt,
     };
     fetch("/", {
@@ -160,10 +176,11 @@ function parser(todoVal, cnt){
             "Content-Type": "application/json",
         },
         body: JSON.stringify(req),
-    }).then((res) => res.json())
-      .then(console.log)
-      .catch((err) => {
-        console.error(new Error("로그인 중 에러 발생"));
-      });
-}
+    });
+    // .then((res) => res.json())
+    //   .then(console.log)
+    //   .catch((err) => {
+    //     console.error(new Error("로그인 중 에러 발생"));
+
+};
 

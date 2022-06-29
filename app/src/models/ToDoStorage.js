@@ -2,16 +2,15 @@
 
 class ToDoStorage {
     static #text = { //은닉화 public -> private , 정적변수 
-        value: ["할 일1", "할 일2"],
-        id: ["0", "1"]
+        value: [],
+        id: []
     };
 
     static getUsers(...values) {
         const text = this.#text 
         const newText =  values.reduce((newText, value) => {
-            if (text.hasOwnProperty(id)) {
-                // newText[value] = text[value];
-                console.log(id);
+            if (text.hasOwnProperty(value)) {
+                newText[value] = text[value];
             }
             return newText;
         }, {});
