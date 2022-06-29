@@ -4,12 +4,12 @@ const todoAddBtn = document.querySelector(".add-btn");
 
 let todos = [];
 let id = 1;
-let is_clickedRevice = [];
+let isClickedRevice = [];
 
 const setClickedInfo = (todos) => {
-  is_clickedRevice = [];
+  isClickedRevice = [];
   todos.forEach((todo) => {
-    is_clickedRevice.push({ id: todo.id, is_clickedRevice: false });
+    isClickedRevice.push({ id: todo.id, active: false });
   });
 };
 
@@ -31,6 +31,7 @@ function insertDatabase(todoInfo) {
       console.error("post 중 에러 발생");
     });
 }
+
 function getDatabase() {
   fetch("/", {
     method: "PUT",
@@ -91,13 +92,14 @@ function updateDatabase(todoInfo) {
       console.error("patch 중 에러 발생");
     });
 }
+
 const setTodos = (newTodos, newClickedInfo) => {
   todos = newTodos;
-  is_clickedRevice = newClickedInfo;
+  isClickedRevice = newClickedInfo;
 };
 
 const getAllTodos = () => {
-  return [todos, is_clickedRevice];
+  return [todos, isClickedRevice];
 };
 
 const appendTodos = (text) => {
@@ -124,7 +126,7 @@ const completeTodo = (todoId) => {
 const onClickReviceTodo = (e, todoId) => {
   const newClickedInfo = getAllTodos()[1].map((clickedInfo) =>
     clickedInfo.id === todoId
-      ? { ...clickedInfo, is_clickedRevice: !clickedInfo.is_clickedRevice }
+      ? { ...clickedInfo, active: !clickedInfo.active }
       : clickedInfo
   );
   setTodos(todos, newClickedInfo);
@@ -142,7 +144,7 @@ const updateTodo = (text, todoId) => {
 const paintTodos = () => {
   todoListElem.innerHTML = null;
   const allTodos = getAllTodos()[0];
-  const is_clickedRevice = getAllTodos()[1];
+  const isClickedRevice = getAllTodos()[1];
 
   allTodos.forEach((todo) => {
     const reviceBtnElem = document.createElement("button");
@@ -172,8 +174,7 @@ const paintTodos = () => {
     todoElem.innerText = todo.description;
 
     if (
-      is_clickedRevice.filter((clickInfo) => clickInfo.id === todo.id)[0]
-        .is_clickedRevice
+      isClickedRevice.filter((clickInfo) => clickInfo.id === todo.id)[0].active
     ) {
       reviceBtnElem.innerHTML = "완료";
       todoElem = document.createElement("input");

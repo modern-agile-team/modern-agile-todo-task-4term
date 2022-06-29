@@ -1,6 +1,11 @@
 "use strict";
 const logger = require("../../src/config/logger");
 const Todo = require("../models/ToDo");
+const httpStatus = {
+  ok: 200,
+  created: 201,
+  badRequest: 400,
+};
 
 const ToDo = {
   output: (req, res) => {
@@ -9,35 +14,41 @@ const ToDo = {
   },
   create: async (req, res) => {
     const todo = new Todo(req.body);
-    const response = await todo.addTodo();
+    const response = await todo.addToDo();
     log(response, {
       method: "POST",
-      status: response.err ? 400 : 201,
+      status: response.err ? httpStatus.badRequest : httpStatus.created,
     });
-    return res.status(response.err ? 400 : 200).json(response);
+    return res
+      .status(response.err ? httpStatus.badRequest : httpStatus.ok)
+      .json(response);
   },
   read: async (req, res) => {
     const todo = new Todo(req.body);
-    const response = await todo.getAllTodo();
+    const response = await todo.getAllToDo();
     return res.json(response);
   },
   update: async (req, res) => {
     const todo = new Todo(req.body);
-    const response = await todo.updateTodo();
+    const response = await todo.updateToDo();
     log(response, {
       method: "PATCH",
-      status: response.err ? 400 : 200,
+      status: response.err ? httpStatus.badRequest : httpStatus.ok,
     });
-    return res.status(response.err ? 400 : 200).json(response);
+    return res
+      .status(response.err ? httpStatus.badRequest : httpStatus.ok)
+      .json(response);
   },
   delete: async (req, res) => {
     const todo = new Todo(req.body);
-    const response = await todo.removeTodo();
+    const response = await todo.removeToDo();
     log(response, {
       method: "DELETE",
-      status: response.err ? 400 : 200,
+      status: response.err ? httpStatus.badRequest : httpStatus.ok,
     });
-    return res.status(response.err ? 400 : 200).json(response);
+    return res
+      .status(response.err ? httpStatus.badRequest : httpStatus.ok)
+      .json(response);
   },
 };
 
