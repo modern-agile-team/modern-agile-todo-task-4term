@@ -2,12 +2,12 @@
 let cnt = 0;
 const ul = document.getElementById('ul_ID');
 const todoInput = document.querySelector('.todo_input');
-// const addBtn = document.querySelector('.btn_add')
-//     .addEventListener('click', () => {
-//         add(todoInput.value);
-//         todoInput.value = "";
-//     });
-const addBtn = document.querySelector('.btn_add').addEventListener('click', parser);
+const addBtn = document.querySelector('.btn_add')
+    .addEventListener('click', () => {
+        add(todoInput.value);
+        todoInput.value = "";
+    });
+// const addBtn = document.querySelector('.btn_add').addEventListener('click', parser);
 
 
 const editToggle =  {
@@ -69,10 +69,10 @@ function add(todoValue) {
         enterEdit(event, todoInput.value, input.id, divText.style.textDecoration);
     });
 
+    parser(todoValue, cnt);
+
     cnt++;
     
-    // parser(todoValue, cnt);
-
     delBtn.appendChild(delBtnText);
     editBtn.appendChild(editBtnText);
     divText.appendChild(text);
@@ -164,8 +164,9 @@ function del(event, id) {
     event.stopPropagation();
 }
 
-function parser(e){
-    const val = e.target.parentNode.childNodes[1].value;
+function parser(val, cnt){
+    // console.log(e.target.parentNode);
+    // const val = e.target.parentNode.childNodes[1].value;
     const req = {
         value: val,
         id: cnt,

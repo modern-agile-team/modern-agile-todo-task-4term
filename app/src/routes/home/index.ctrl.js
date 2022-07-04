@@ -1,18 +1,24 @@
 "use strict"
 
-const ToDoStorage = require("../../models/ToDoStorage")
+const ToDo = require("../../models/ToDo")
 
 const output = {
     home: (req, res) => {
         res.render("index");
      },
 }
+
 const process = {
     home: (req, res) =>{
-        const text = req.body.value,
-              id = req.body.id;
-        console.log(ToDoStorage.getUsers("value","id"));
-        console.log(text, id);
+        const todo = new ToDo(req.body);
+        const reponse = todo.add();
+        return res.json(reponse);
+``
+        // const text = req.body.value,
+        //       id = req.body.id,
+        //       value = req.body.value;
+        // console.log(ToDoStorage.getUsers("value","id"));
+        // console.log(value, id);
 
         
         // const response = {};
