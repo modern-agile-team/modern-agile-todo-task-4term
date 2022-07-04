@@ -6,7 +6,7 @@ const express = require("express");
 
 const app = express();
 
-const home = require("./src/routes/home")
+const home = require("./src/routes/")
 
 //뷰 세팅
 app.set("views", "./src/views");

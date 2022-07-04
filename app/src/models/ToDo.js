@@ -1,5 +1,6 @@
 "use strict";
 
+const { response } = require("express");
 const storage = require("./ToDoStorage");
 
 class ToDo {
@@ -7,12 +8,17 @@ class ToDo {
     this.body = body;
   }
 
-  add() {
-    const a = storage.getData("1");
-    const body = this.body;
-    console.log(a);
-    console.log(body.id, body.value);
+  async add() { //await을 사용하기 위해서 비동기로 변경 해 주어야 함
+    const client = this.body;
+    // storage.save(client);
+    const a = await storage.getData(client.value);
   }
+  async save() {
+    const client = this.body;
+    const response = await storage.save(client);
+    return response;
+  }
+
 }
 
 module.exports = ToDo;
