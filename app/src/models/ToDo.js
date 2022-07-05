@@ -8,16 +8,16 @@ class ToDo {
     this.body = body;
   }
 
-  async add() { //await을 사용하기 위해서 비동기로 변경 해 주어야 함
-    const client = this.body;
-    // storage.save(client);
-    const a = await storage.getData(client.value);
-  }
-  async save() {
-    const client = this.body;
-    const response = await storage.save(client);
+  async info() { //await을 사용하기 위해서 비동기로 변경 해 주어야 함
+    const response = await storage.getData();
     return response;
   }
+  
+  async save() {
+    const client = this.body;
+      const response = await storage.dataSave(client);
+      return response;
+    }
 
 }
 

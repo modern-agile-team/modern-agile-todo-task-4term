@@ -9,9 +9,9 @@ const output = {
 }
 
 const process = {
-    home: async (req, res) =>{
+    info: async (req, res) =>{
         const todo = new ToDo(req.body);
-        const reponse = await todo.add();
+        const reponse = await todo.info();
         return res.json(reponse);
 
     },

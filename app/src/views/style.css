@@ -26,6 +26,7 @@ ul {
   width: 400px;
   height: 36px;
   border: none;
+  outline: none;
   border-bottom: 1px solid #C5F6FA;
 }
 
