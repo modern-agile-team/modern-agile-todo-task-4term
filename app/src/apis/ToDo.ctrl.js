@@ -6,9 +6,7 @@ const Todo = require("../models/ToDo");
 
 const ToDo = {
   read: async (req, res) => {
-    const todo = new Todo();
-    const response = await todo.readTodo();
-    return res.json(response);
+    res.render("index");
   },
   create: async (req, res) => {
     const todo = new Todo(req.body);

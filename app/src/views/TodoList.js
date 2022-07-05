@@ -5,7 +5,9 @@ const addBtn = document.querySelector(".middle");
 addBtn.addEventListener("submit", e => {
   e.preventDefault();
 
-  function tmp() {
+  createDb();
+
+  function createDb() {
     const req = {
       inputBox: inputBox.value,
     };
@@ -24,7 +26,31 @@ addBtn.addEventListener("submit", e => {
       .then(console.log);
   }
 
-  tmp();
+  // function updateDb() {
+  //   fetch("/", {
+  //     method: "UPDATE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(req),
+  //   })
+  //     .then(res => res.json())
+  //     .then(console.log);
+  // }
+  // updateDb();
+
+  // function deleteDb() {
+  //   fetch("/", {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(req),
+  //   })
+  //     .then(res => res.json())
+  //     .then(console.log);
+  // }
+  // deleteDb();
 
   const bottom_box = inputBox.value;
 
@@ -96,5 +122,3 @@ addBtn.addEventListener("submit", e => {
     listEl.removeChild(todoEl);
   });
 });
-
-// event.stopImmediatePropagation();
