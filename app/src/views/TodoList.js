@@ -1,9 +1,30 @@
 const inputBox = document.querySelector(".todo-input");
 const listEl = document.querySelector(".bottom");
-const addBtn = document.querySelector(".addBtn");
+const addBtn = document.querySelector(".middle");
 
-addBtn.addEventListener("click", e => {
+addBtn.addEventListener("submit", e => {
   e.preventDefault();
+
+  function tmp() {
+    const req = {
+      inputBox: inputBox.value,
+    };
+    console.log(req);
+    console.log(JSON.stringify(req));
+
+    fetch("/", {
+      // 데이터 서버로 보내기
+      method: "POST", // 데이터를 받을 수 있는 api 마련
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    })
+      .then(res => res.json())
+      .then(console.log);
+  }
+
+  tmp();
 
   const bottom_box = inputBox.value;
 
@@ -40,8 +61,14 @@ addBtn.addEventListener("click", e => {
 
   inputBox.value = "";
 
-  todoInputEl.addEventListener("click", () => {
-    if (todoContentEl.style.textDecoration == "none") {
+  todoInputEl.addEventListener("click", event => {
+    // event.stopPropagation();
+    event.stopImmediatePropagation();
+    // console.log(todoContentEl.style.textDecoration);
+    if (
+      todoContentEl.style.textDecoration === "none" ||
+      todoContentEl.style.textDecoration === ""
+    ) {
       todoContentEl.style.textDecoration = "line-through";
       todoInputEl.style.color = "lightgray";
       todoContentEl.style.color = "lightgray";
@@ -52,6 +79,7 @@ addBtn.addEventListener("click", e => {
   });
 
   todoEditEl.addEventListener("click", () => {
+    console.log("버튼 실행");
     if (todoEditEl.innerText === "수정") {
       todoInputEl.removeAttribute("readonly");
       todoInputEl.style.backgroundColor = "white";
@@ -68,3 +96,5 @@ addBtn.addEventListener("click", e => {
     listEl.removeChild(todoEl);
   });
 });
+
+// event.stopImmediatePropagation();

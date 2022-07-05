@@ -133,7 +133,6 @@ input[type="inputText"] {
 input[type="inputText"]:active {
   text-decoration: line-through;
   color: lightgray;
-  background-color: #fff; 
 }
 .changeBtn {
   outline: none;

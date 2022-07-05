@@ -1,22 +1,33 @@
 "use strict";
-/*
-const output = {
-  hello: (req, res) => {
-    res.render("index");
+
+const { response } = require("../../app");
+const ToDoStorage = require("../models/ToDoStorage");
+const Todo = require("../models/ToDo");
+
+const ToDo = {
+  read: async (req, res) => {
+    const todo = new Todo();
+    const response = await todo.readTodo();
+    return res.json(response);
+  },
+  create: async (req, res) => {
+    const todo = new Todo(req.body);
+    const response = await todo.createToDo(req.body);
+    return res.json(response);
+  },
+  update: async (req, res) => {
+    const todo = new Todo(req.body);
+    const response = await todo.updateToDo(req.body);
+    return res.json(response);
   },
 
-  index: (req, res) => {
-    res.render("index");
-  },
-};
-const process = {
-  index: (req, res) => {
-    console.log(req.body);
+  delete: async (req, res) => {
+    const todo = new Todo(req.body);
+    const response = await todo.deleteToDo(req.body);
+    return res.json(response);
   },
 };
 
 module.exports = {
-  output,
-  process,
+  ToDo,
 };
-*/
