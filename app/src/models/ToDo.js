@@ -8,8 +8,8 @@ class Todo {
 
   async readTodo() {
     try {
-      const getResults = await ToDoStorage.readTodo();
-      return getResults;
+      const getResult = await ToDoStorage.readTodo();
+      return getResult;
     } catch (err) {
       return { success: false, msg: err };
     }
@@ -25,16 +25,16 @@ class Todo {
 
   async updateToDo() {
     try {
-      const updatetodo = await ToDoStorage.updateToDo(this.body);
-      return updatetodo;
+      const updateResult = await ToDoStorage.updateToDo(this.body);
+      return updateResult;
     } catch (err) {
       return { success: false, msg: err };
     }
   }
   async deleteToDo() {
     try {
-      const deletetodo = await ToDoStorage.deleteToDo(this.body);
-      return deletetodo;
+      const deleteResult = await ToDoStorage.deleteToDo(this.body);
+      return deleteResult;
     } catch (err) {
       return { success: false, msg: err };
     }
