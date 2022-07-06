@@ -4,12 +4,30 @@ const ul = document.getElementById('ul_ID');
 const todoInput = document.querySelector('.todo_input');
 const addBtn = document.querySelector('.btn_add')
     .addEventListener('click', () => {
-        add(todoInput.value);
+        addParse(todoInput.value,cnt);
         todoInput.value = "";
     });
-// const addBtn = document.querySelector('.btn_add').addEventListener('click', parser);
 
+function load() {
+    fetch("/load", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        if(res) {
+            for (let i=0; i < res.length; i++){
+                add(res[i].description,res[i].id);
+            };
+            cnt = res.slice(-1)[0].id + 1;
+        }
+    })
+    .catch(err => console.log(err));
+}
 
+load();
 const editToggle =  {
     완료 : "수정",
     수정 : "완료",
@@ -18,21 +36,17 @@ const editToggle =  {
 
 todoInput.addEventListener('keypress', (e) => {
     if (e.key ==="Enter"){
-        add(todoInput.value);
+        addParse(todoInput.value,cnt);
         todoInput.value = "";
     }
 });
 
+function setCnt(newCnt){
+    cnt = newCnt;
+}
 
-
-function add(todoValue) {
+function add(todoValue, cnt) {
     if (todoValue) {   
-        // li만들고
-        // li.innerHTML = `
-        //     <li>안녕</li>
-        //     <li>${todoValue}</li>
-        // `; 
-        // ul.appendChild(li);
     const text = document.createTextNode(todoValue),
         li = document.createElement("li"),
         div = document.createElement("div"),
@@ -66,13 +80,9 @@ function add(todoValue) {
     });
     input.addEventListener('keypress', (event) => {
         if (event.key ==="Enter")
-        enterEdit(event, todoInput.value, input.id, divText.style.textDecoration);
+        enterEdit(event, input.id);
     });
 
-    parser(todoValue, cnt);
-
-    cnt++;
-    
     delBtn.appendChild(delBtnText);
     editBtn.appendChild(editBtnText);
     divText.appendChild(text);
@@ -82,7 +92,14 @@ function add(todoValue) {
     div.appendChild(editBtn);
     li.appendChild(div);
     ul.appendChild(li); 
+
+    setCnt(++cnt);
     }
+}
+
+function addParse(todoValue, cnt) {
+    parser(todoValue, cnt);
+    add(todoValue, cnt);
 }
 
 function edit(event, id, value) {
@@ -92,7 +109,7 @@ function edit(event, id, value) {
         delBtn =  document.querySelectorAll(".btn_del");
 
     for (let i = 0; i < div.length; i++) {
-        if (div[i].id === id && input[i].style.display === "none") {
+        if (div[i].id === id && input[i].style.display === "none") { //수정
             div[i].disabled = false;
             input[i].value = div[i].innerHTML;
             delBtn[i].style.visibility = "visible";
@@ -100,20 +117,24 @@ function edit(event, id, value) {
             input[i].style.display = "block";
             editBtn[i].innerHTML = editToggle[editBtn[i].innerHTML];
             
-        } else if (div[i].id === id && input[i].style.display === "block") {
+        } else if (div[i].id === id && input[i].style.display === "block") {  //완료
             div[i].disabled = true;
             value = input[i].value;
+            
+            console.log(value, input[i].id);
+            update(value, input[i].id);
             delBtn[i].style.visibility = "hidden";
             div[i].style.display = "block";
             input[i].style.display = "none";
             editBtn[i].innerHTML = editToggle[editBtn[i].innerHTML];
             div[i].innerHTML = input[i].value;
+
         }
     }
     event.stopPropagation();
 }
 
-function enterEdit(event, value, id){
+function enterEdit(event,id){
     event.stopPropagation();
     const input = document.querySelectorAll('.input_add'),
         editBtn = document.querySelectorAll(".btn_edit"),
@@ -134,8 +155,6 @@ function enterEdit(event, value, id){
             div[i].style.textDecoration = div[i].style.textDecoration;
         }
     }
-    
-
 }
 
 function line(event, id) {
@@ -156,32 +175,51 @@ function line(event, id) {
 
 function del(event, id) {
     const li = document.querySelectorAll("li");
+    
     for (let i =0; i < li.length; i++){
         if (li[i].id === id){
             li.forEach((el) => {el === li[i] && el.remove()});
+
+            const req = {
+                id: li[i].id,
+            };
+            fetch("/del", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(req),
+            });
         }
     }
     event.stopPropagation();
 }
 
+
 function parser(val, cnt){
-    // console.log(e.target.parentNode);
-    // const val = e.target.parentNode.childNodes[1].value;
     const req = {
         value: val,
         id: cnt,
     };
-    fetch("/", {
+    fetch("/post", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(req),
     });
-    // .then((res) => res.json())
-    //   .then(console.log)
-    //   .catch((err) => {
-    //     console.error(new Error("로그인 중 에러 발생"));
-
 };
 
+function update(val, id) {
+    const req = {
+        value: val,
+        id: id,
+    };
+    fetch("/update", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    });
+}
