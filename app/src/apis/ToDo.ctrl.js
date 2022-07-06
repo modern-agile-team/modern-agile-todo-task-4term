@@ -13,7 +13,7 @@ const ToDo = {
     res.render("index");
   },
   create: async (req, res) => {
-    const todo = new Todo(req.body);
+    const todo = new Todo(req.params);
     const response = await todo.addToDo();
     log(response, {
       method: "POST",
@@ -29,7 +29,7 @@ const ToDo = {
     return res.json(response);
   },
   update: async (req, res) => {
-    const todo = new Todo(req.body);
+    const todo = new Todo(req.params);
     const response = await todo.updateToDo();
     log(response, {
       method: "PATCH",
@@ -40,7 +40,7 @@ const ToDo = {
       .json(response);
   },
   delete: async (req, res) => {
-    const todo = new Todo(req.body);
+    const todo = new Todo(req.params);
     const response = await todo.removeToDo();
     log(response, {
       method: "DELETE",

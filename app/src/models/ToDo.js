@@ -9,8 +9,8 @@ class Todo {
 
   async addToDo() {
     try {
-      const body = this.body;
-      const addResult = await ToDoStorage.addToDo(body);
+      const params = this.body;
+      const addResult = await ToDoStorage.addToDo(params);
       return addResult;
     } catch (err) {
       return { success: false, err };
@@ -24,8 +24,8 @@ class Todo {
 
   async updateToDo() {
     try {
-      const body = this.body;
-      const updateResult = await ToDoStorage.updateToDo(body);
+      const params = this.body;
+      const updateResult = await ToDoStorage.updateToDo(params);
       return updateResult;
     } catch (err) {
       return { success: false, err };
@@ -34,8 +34,8 @@ class Todo {
 
   async removeToDo() {
     try {
-      const body = this.body;
-      const removeResult = await ToDoStorage.removeToDo(body);
+      const params = this.body;
+      const removeResult = await ToDoStorage.removeToDo(params);
       return removeResult;
     } catch (err) {
       return { success: false, err };

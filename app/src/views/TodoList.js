@@ -13,13 +13,12 @@ const setClickedInfo = (todos) => {
   });
 };
 
-function insertDatabase(todoInfo) {
-  fetch("/", {
+function insertDatabase({ description, is_check }) {
+  fetch(`/${description}/${is_check}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(todoInfo),
   })
     .then((res) => res.json())
     .then((res) => {
@@ -33,12 +32,11 @@ function insertDatabase(todoInfo) {
 }
 
 function getDatabase() {
-  fetch("/", {
-    method: "PUT",
+  fetch("/readDB", {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(todos),
   })
     .then((res) => res.json())
     .then((res) => {
@@ -51,17 +49,16 @@ function getDatabase() {
       paintTodos();
     })
     .catch((err) => {
-      console.error("post 중 에러 발생");
+      console.error("get 중 에러 발생");
     });
 }
 
-function removeDatabase(todoInfo) {
-  fetch("/", {
+function removeDatabase({ id }) {
+  fetch(`/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(todoInfo),
   })
     .then((res) => res.json())
     .then((res) => {
@@ -74,13 +71,12 @@ function removeDatabase(todoInfo) {
     });
 }
 
-function updateDatabase(todoInfo) {
-  fetch("/", {
+function updateDatabase({ description, id, is_check }) {
+  fetch(`/${id}/${description}/${is_check}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(todoInfo),
   })
     .then((res) => res.json())
     .then((res) => {

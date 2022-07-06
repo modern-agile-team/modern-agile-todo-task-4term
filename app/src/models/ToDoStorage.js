@@ -13,21 +13,21 @@ class ToDoStorage {
     });
   }
 
-  static addToDo({ description, is_check }) {
+  static addToDo({ description, isCheck }) {
     return new Promise((resolve, reject) => {
       const query = "INSERT INTO todos(description,is_check) VALUES(?,?);";
-      db.query(query, [description, is_check], (err) => {
+      db.query(query, [description, isCheck], (err) => {
         if (err) reject(`${err}`);
         else resolve({ success: true, msg: "테이블에 데이터를 추가했습니다." });
       });
     });
   }
 
-  static updateToDo({ description, is_check, id }) {
+  static updateToDo({ description, isCheck, id }) {
     return new Promise((resolve, reject) => {
       const query =
         "UPDATE todos SET description = ?, is_check = ? WHERE id = ?;";
-      db.query(query, [description, is_check, id], (err) => {
+      db.query(query, [description, isCheck, id], (err) => {
         if (err) reject(`${err}`);
         else resolve({ success: true, msg: "테이블의 데이터를 변경했습니다." });
       });
