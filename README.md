@@ -1,8 +1,12 @@
 # 👨🏻‍💻 모던 애자일 퍼블리싱 & Back-End & Front-End 개발 과제
 
+# 최종 목표
+https://user-images.githubusercontent.com/69745441/174486244-16043eef-40e2-4275-b138-825bb2769002.mov
+
+
 <br>
 
-## 퍼블리싱 
+## 🐶 퍼블리싱 문제
 
 - https://www.figma.com/file/XyYbaBMYh2Ro1KAhQr3aEX/Untitled?node-id=0%3A1
 - figma 에 디자인된 웹 스펙을 참고하여 웹 퍼블리싱
@@ -10,7 +14,7 @@
 ![Screen Shot 2022-06-12 at 2 05 38 PM](https://user-images.githubusercontent.com/69745441/173215393-612d9657-18ef-420b-81bd-7133aa04a29d.png)
 
 
-## 🖍 문제
+## 🖍 Back-End 문제
 
 - Back-End 서버 구성 및 Todo list CRUD API 구현
   1.  전체적인 서버 구성, 파일 생성 및 DB를 이용한 Todo list API 구현
@@ -66,7 +70,7 @@
 <br>
 <br>
 
-## Front-End
+## 🐱 Front-End 
 - figma 에 기획된 데이터 추가(Create), 조회(Read), 수정(Update), 삭제(Delete) 의 CRUD 구현
 - 4기 노션 > `Front-End 과제` 에 예시를 보고 JavaScript 를 사용해 구현
 ![Screen Shot 2022-06-12 at 2 23 51 PM](https://user-images.githubusercontent.com/69745441/173217033-2f095086-1461-436b-8e54-750fbd3029c5.png)
