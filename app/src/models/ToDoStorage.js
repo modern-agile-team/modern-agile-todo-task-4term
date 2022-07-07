@@ -6,6 +6,7 @@ const db = require("../config/mysql");
 class ToDoStorage {
     
     static async getData() {  //데이터 전체 조회
+        
         return new Promise((resolve, reject) => { //성공 시 resolve, 실패 시 reject 
             const query = "SELECT * FROM todo_list;";
             db.query(query, (err, data) => {
@@ -15,12 +16,12 @@ class ToDoStorage {
         });
     }
 
-    static async dataSave(input){ //데이터 저장
+    static async dataSave({value,id}){ //데이터 저장
         return new Promise((resolve, reject) => { //성공 시 resolve, 실패 시 reject 
             const query = "INSERT INTO todo_list(description, id) VALUES(?, ?);";
             db.query(
                 query, 
-                [input.value, input.id], 
+                [value, id], 
                 (err) => {
                 if (err) reject(`${err}`);
                 resolve({ success: true });
