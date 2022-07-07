@@ -13,7 +13,6 @@ class ToDoStorage {
                 resolve(data);
             });
         });
-        
     }
 
     static async dataSave(input){ //데이터 저장
@@ -40,16 +39,26 @@ class ToDoStorage {
                 resolve({ success: true });
             });
         });
-        
     }
 
     static async upData(client) { 
-        console.log(client);
         return new Promise((resolve, reject) => { 
-            const query = "UPDATE todo_list SET description = ? WHERE id = ?;";
+            const query = "UPDATE todo_list SET description = ? , is_check= ? WHERE id = ?;";
             db.query(
                 query, 
-                [client.value, client.id], 
+                [client.value, client.state, client.id], 
+                (err) => {
+                if (err) reject(`${err}`);
+                resolve({ success: true });
+            });
+        });
+    }
+    static async liUpData(client) { 
+        return new Promise((resolve, reject) => { 
+            const query = "UPDATE todo_list SET is_check= ? WHERE id = ?;";
+            db.query(
+                query, 
+                [client.state, client.id], 
                 (err) => {
                 if (err) reject(`${err}`);
                 resolve({ success: true });
@@ -57,8 +66,6 @@ class ToDoStorage {
         });
         
     }
-    
-    
 }
 
 module.exports = ToDoStorage;

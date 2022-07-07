@@ -11,6 +11,7 @@ router.get("/load", ctrl.process.load);
 router.post("/post", ctrl.process.save);
 router.post("/del", ctrl.process.del);
 router.post("/update", ctrl.process.update);
+router.post("/lineUpdate", ctrl.process.lineUpdate);
 
 
 module.exports = router;

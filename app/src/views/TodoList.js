@@ -1,4 +1,5 @@
 "use strict"
+
 let cnt = 0;
 const ul = document.getElementById('ul_ID');
 const todoInput = document.querySelector('.todo_input');
@@ -19,7 +20,7 @@ function load() {
     .then((res) => {
         if(res) {
             for (let i=0; i < res.length; i++){
-                add(res[i].description,res[i].id);
+                add(res[i].description,res[i].id, res[i].is_check);
             };
             cnt = res.slice(-1)[0].id + 1;
         }
@@ -28,11 +29,11 @@ function load() {
 }
 
 load();
+
 const editToggle =  {
     완료 : "수정",
     수정 : "완료",
 }
-
 
 todoInput.addEventListener('keypress', (e) => {
     if (e.key ==="Enter"){
@@ -45,7 +46,8 @@ function setCnt(newCnt){
     cnt = newCnt;
 }
 
-function add(todoValue, cnt) {
+function add(todoValue, cnt, is_check) {
+    console.log(is_check)
     if (todoValue) {   
     const text = document.createTextNode(todoValue),
         li = document.createElement("li"),
@@ -66,10 +68,14 @@ function add(todoValue, cnt) {
     div.setAttribute("class", "div_add");
     delBtn.setAttribute("id", cnt);
     delBtn.setAttribute("class", "btn_del");
-    delBtn.style.visibility= "hidden";
     editBtn.setAttribute("id", cnt);
     editBtn.setAttribute("class", "btn_edit");
     li.setAttribute("id", cnt);
+
+    if (is_check == 1) {
+        divText.style.textDecoration = "line-through";
+        divText.style.color = "lightgrey";
+    };
 
     editBtn.addEventListener('click', (event) =>
         edit(event, editBtn.id, todoInput.value));
@@ -92,14 +98,13 @@ function add(todoValue, cnt) {
     div.appendChild(editBtn);
     li.appendChild(div);
     ul.appendChild(li); 
-
-    setCnt(++cnt);
     }
 }
 
 function addParse(todoValue, cnt) {
     parser(todoValue, cnt);
     add(todoValue, cnt);
+    setCnt(++cnt);
 }
 
 function edit(event, id, value) {
@@ -112,7 +117,6 @@ function edit(event, id, value) {
         if (div[i].id === id && input[i].style.display === "none") { //수정
             div[i].disabled = false;
             input[i].value = div[i].innerHTML;
-            delBtn[i].style.visibility = "visible";
             div[i].style.display = "none";
             input[i].style.display = "block";
             editBtn[i].innerHTML = editToggle[editBtn[i].innerHTML];
@@ -120,15 +124,16 @@ function edit(event, id, value) {
         } else if (div[i].id === id && input[i].style.display === "block") {  //완료
             div[i].disabled = true;
             value = input[i].value;
-            
-            console.log(value, input[i].id);
-            update(value, input[i].id);
-            delBtn[i].style.visibility = "hidden";
+
+            if (div[i].style.textDecoration === "line-through") {
+                update(value, input[i].id, 1);
+            }
+            else update(value, input[i].id, 0);
+
             div[i].style.display = "block";
             input[i].style.display = "none";
             editBtn[i].innerHTML = editToggle[editBtn[i].innerHTML];
             div[i].innerHTML = input[i].value;
-
         }
     }
     event.stopPropagation();
@@ -147,7 +152,6 @@ function enterEdit(event,id){
                 event.stopPropagation();
             })
             value = input[i].value;
-            delBtn[i].style.visibility = "hidden";
             div[i].style.display = "block";
             input[i].style.display = "none";
             editBtn[i].innerHTML = editToggle[editBtn[i].innerHTML];
@@ -164,10 +168,11 @@ function line(event, id) {
         if (div[i].id === id && div[i].style.textDecoration === ""){
             div[i].style.textDecoration = "line-through";
             div[i].style.color = "lightgrey";
-
+            lineUpDate(id, 1);
         } else if (div[i].id === id && div[i].style.textDecoration == "line-through"){
             div[i].style.textDecoration = "";
             div[i].style.color = "black";
+            lineUpDate(id, 0);
         }
     }
     event.stopPropagation();
@@ -195,7 +200,6 @@ function del(event, id) {
     event.stopPropagation();
 }
 
-
 function parser(val, cnt){
     const req = {
         value: val,
@@ -210,10 +214,11 @@ function parser(val, cnt){
     });
 };
 
-function update(val, id) {
+function update(val, id, check) {
     const req = {
         value: val,
         id: id,
+        state: check
     };
     fetch("/update", {
         method: "POST",
@@ -222,4 +227,18 @@ function update(val, id) {
         },
         body: JSON.stringify(req),
     });
+}
+function lineUpDate(id, check) {
+    const req = {
+        id: id,
+        state: check,
+    };
+    fetch("/lineUpdate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    });
+
 }

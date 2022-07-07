@@ -134,15 +134,16 @@ ul {
   border: 0;
 }
 
-.btn_edit:hover{
-  background: #2AE3FF;
-}
-
 .btn_edit:active{
   background: #1D99AC;
 }
 
+.btn_edit:hover{
+  background: #2AE3FF;
+}
+
 .btn_del {
+  visibility: hidden;
   color: red;
   width: 9px;
   height: 16px;
@@ -158,4 +159,8 @@ ul {
 
 .btn_del:active{
   background-color:transparent;
+}
+
+.div_add:hover .btn_del{
+  visibility: visible;
 }

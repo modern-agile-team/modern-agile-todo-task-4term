@@ -30,12 +30,17 @@ class ToDo {
 
   async up() {
     const client = this.body;
-    console.log(client);
     const response = await storage.upData(client);
 
     return response;
     }
+  
+  async liUp() {
+    const client = this.body;
+    const response = await storage.liUpData(client);
 
+    return response;
+    }
 }
 
 module.exports = ToDo;
