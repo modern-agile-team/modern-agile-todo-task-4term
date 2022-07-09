@@ -1,14 +1,43 @@
 <!-- @format -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="views/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <!-- <script type="text/javascript" src="views/TodoList.js"></script> -->
     <title>TodoList</title>
   </head>
   <body>
-    <script type="text/javascript" src="./TodoList.js"></script>
+    
+    <div class="wrapper">
+      <div class="top"> 
+        <div class="list">TodoList</div> 
+      </div>
+        <form class="middle">
+          <input type="text" class="todo-input"></input>
+          <input type="submit" class="addBtn" value="add"></input>
+        </form>
+      <ul class="bottom">
+        <!-- <li class="bottom_box"> 
+            <buttom class="delBtn">X</buttom> 
+            <div class="todo">
+              <input
+                type = "inputText"
+                type = "inputText"
+                class = "inputText"
+                value = ""
+                readonly
+              />
+            </div> 
+            <buttom class="changeBtn">수정</buttom>
+            <li class="bottom_box">
+        </li> -->
+      </ul>
+    </div>
+    <script src="views/TodoList.js"></script>
   </body>
 </html>
