@@ -7,12 +7,8 @@ class Todo {
   }
 
   async readTodo() {
-    try {
-      const getResult = await ToDoStorage.readTodo();
-      return getResult;
-    } catch (err) {
-      return { success: false, msg: err };
-    }
+    const getResult = await ToDoStorage.readTodo();
+    return Object.values(JSON.parse(JSON.stringify(getResult)));
   }
   async createToDo() {
     try {

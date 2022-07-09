@@ -5,24 +5,37 @@ const ToDoStorage = require("../models/ToDoStorage");
 const Todo = require("../models/ToDo");
 
 const ToDo = {
-  read: async (req, res) => {
+  output: (req, res) => {
     res.render("index");
   },
+  read: async (req, res) => {
+    const todo = new Todo(req.body);
+    const response = await todo.readTodo();
+    return res.json(response);
+  },
+  // create: async (req, res) => {
+  //   const todo = new Todo(req.params);
+  //   const response = await todo.createToDo();
+  //   return res;
+  // },
   create: async (req, res) => {
     const todo = new Todo(req.body);
     const response = await todo.createToDo(req.body);
     return res.json(response);
   },
+
   update: async (req, res) => {
-    const todo = new Todo(req.body);
-    const response = await todo.updateToDo(req.body);
-    return res.json(response);
+    // console.log("ffffff");
+    const todo = new Todo(req.params);
+    const response = await todo.updateToDo();
+    return res;
   },
 
   delete: async (req, res) => {
-    const todo = new Todo(req.body);
-    const response = await todo.deleteToDo(req.body);
-    return res.json(response);
+    // console.log(req.params);
+    const todo = new Todo(req.params);
+    const response = await todo.deleteToDo();
+    return res;
   },
 };
 

@@ -5,7 +5,7 @@ const db = require("../config/mysql");
 class ToDoStorage {
   static readTodo() {
     return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM todolist ORDER BY id DESC";
+      const query = "SELECT * FROM todolist";
       db.query(query, (err, data) => {
         if (err) reject(`${err}`);
         resolve(data);
@@ -38,7 +38,7 @@ class ToDoStorage {
   static async deleteToDo({ id }) {
     return new Promise((resolve, reject) => {
       const query = "DELETE FROM todolist WHERE id = ?;";
-      console.log(query);
+      // console.log(query);
       db.query(query, [id], err => {
         if (err) reject(`${err}`);
         resolve({ success: "삭제" });
