@@ -28,14 +28,14 @@ const ToDo = {
     // console.log("ffffff");
     const todo = new Todo(req.params);
     const response = await todo.updateToDo();
-    return res;
+    return res.json(response);
   },
 
   delete: async (req, res) => {
     // console.log(req.params);
     const todo = new Todo(req.params);
     const response = await todo.deleteToDo();
-    return res;
+    return res.json(response);
   },
 };
 
